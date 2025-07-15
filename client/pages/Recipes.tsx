@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import MobileMenu from "@/components/MobileMenu";
 
 interface Recipe {
   id: string;
@@ -73,7 +74,7 @@ export default function Recipes() {
       ingredients: ["닭가슴살", "토마토", "양파"],
       calories: 240,
       category: "샐러드",
-      tags: ["다이어트", "간편"],
+      tags: ["다이어트", "간��"],
     },
     {
       id: "4",
