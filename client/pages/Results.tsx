@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import MobileMenu from "@/components/MobileMenu";
 
 interface DetectedIngredient {
   name: string;
@@ -116,7 +117,7 @@ export default function Results() {
           difficulty: "보통",
           servings: 4,
           rating: 4.6,
-          ingredients: ["닭가슴살", "당근", "양파", "토마토"],
+          ingredients: ["닭가��살", "당근", "양파", "토마토"],
           calories: 280,
         },
         {
