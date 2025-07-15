@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function RecipeDetail() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ export default function RecipeDetail() {
         step: 1,
         title: "재료 준비하기",
         description:
-          "닭가슴살은 한입 크기로 자르고, 토마토는 쐐기 모양으로, 양파는 채 썰어주세요. 마늘은 얇게 슬라이스합니다.",
+          "닭가슴살은 한입 크기로 자르고, 토마토는 쐐기 모양으로, 양파는 채 썰어주세요. 마���은 얇게 슬라이스합니다.",
         time: "5분",
       },
       {
