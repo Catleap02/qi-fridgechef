@@ -7,7 +7,6 @@ import {
   Users,
   Star,
   Search,
-  Filter,
   Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,89 +34,88 @@ export default function Recipes() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Mock recipe data
   const recipes: Recipe[] = [
     {
       id: "1",
-      name: "닭가슴살 토마토 볶음",
+      name: "Chicken Tomato Stir Fry",
       image: "/placeholder.svg",
-      cookTime: "25��",
-      difficulty: "쉬움",
+      cookTime: "25 min",
+      difficulty: "Easy",
       servings: 2,
       rating: 4.8,
-      ingredients: ["닭가슴살", "토마토", "양파", "마늘"],
+      ingredients: ["Chicken Breast", "Tomato", "Onion", "Garlic"],
       calories: 320,
-      category: "메인요리",
-      tags: ["고단백", "저칼로리"],
+      category: "Main Course",
+      tags: ["High Protein", "Low Calorie"],
     },
     {
       id: "2",
-      name: "채소 닭고기 스튜",
+      name: "Vegetable Chicken Stew",
       image: "/placeholder.svg",
-      cookTime: "40분",
-      difficulty: "보통",
+      cookTime: "40 min",
+      difficulty: "Medium",
       servings: 4,
       rating: 4.6,
-      ingredients: ["닭가슴살", "당근", "양파", "토마토"],
+      ingredients: ["Chicken Breast", "Carrot", "Onion", "Tomato"],
       calories: 280,
-      category: "메인요리",
-      tags: ["건강식", "푸짐한"],
+      category: "Main Course",
+      tags: ["Healthy", "Hearty"],
     },
     {
       id: "3",
-      name: "간단한 치킨 샐러드",
+      name: "Simple Chicken Salad",
       image: "/placeholder.svg",
-      cookTime: "15분",
-      difficulty: "쉬움",
+      cookTime: "15 min",
+      difficulty: "Easy",
       servings: 1,
       rating: 4.7,
-      ingredients: ["닭가슴살", "토마토", "양파"],
+      ingredients: ["Chicken Breast", "Tomato", "Onion"],
       calories: 240,
-      category: "샐러드",
-      tags: ["다이어트", "간편"],
+      category: "Salad",
+      tags: ["Diet", "Quick"],
     },
     {
       id: "4",
-      name: "마늘 볶음밥",
+      name: "Garlic Fried Rice",
       image: "/placeholder.svg",
-      cookTime: "20분",
-      difficulty: "쉬움",
+      cookTime: "20 min",
+      difficulty: "Easy",
       servings: 2,
       rating: 4.5,
-      ingredients: ["밥", "마늘", "양파", "계란"],
+      ingredients: ["Rice", "Garlic", "Onion", "Egg"],
       calories: 380,
-      category: "메��요리",
-      tags: ["간편", "든든한"],
+      category: "Main Course",
+      tags: ["Quick", "Filling"],
     },
     {
       id: "5",
-      name: "당근 수프",
+      name: "Carrot Soup",
       image: "/placeholder.svg",
-      cookTime: "30분",
-      difficulty: "보통",
+      cookTime: "30 min",
+      difficulty: "Medium",
       servings: 3,
       rating: 4.4,
-      ingredients: ["당근", "양파", "마늘", "우유"],
+      ingredients: ["Carrot", "Onion", "Garlic", "Milk"],
       calories: 180,
-      category: "수프",
-      tags: ["비건", "영양만점"],
+      category: "Soup",
+      tags: ["Vegan", "Nutritious"],
     },
     {
       id: "6",
-      name: "토마토 파스타",
+      name: "Tomato Pasta",
       image: "/placeholder.svg",
-      cookTime: "25분",
-      difficulty: "보통",
+      cookTime: "25 min",
+      difficulty: "Medium",
       servings: 2,
       rating: 4.9,
-      ingredients: ["파스타", "토마토", "마늘", "바질"],
+      ingredients: ["Pasta", "Tomato", "Garlic", "Basil"],
       calories: 420,
-      category: "메인요리",
-      tags: ["이탈리안", "클래식"],
+      category: "Main Course",
+      tags: ["Italian", "Classic"],
     },
   ];
 
-  const categories = ["all", "메인요리", "샐러드", "수프", "디저트"];
+  const categories = ["all", "Main Course", "Salad", "Soup", "Dessert"];
 
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch = recipe.name
@@ -142,7 +140,7 @@ export default function Recipes() {
                 className="gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                홈으로
+                Home
               </Button>
               <div className="flex items-center gap-2">
                 <div className="bg-primary p-2 rounded-xl">
@@ -162,10 +160,10 @@ export default function Recipes() {
         {/* Page Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            모든 레시피
+            All Recipes
           </h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            다양한 재료로 만들 수 있는 맛있는 레시피들을 찾아보세요
+            Browse through our collection of recipes
           </p>
         </div>
 
@@ -178,7 +176,7 @@ export default function Recipes() {
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
-                    placeholder="레시피 검색..."
+                    placeholder="Search recipes..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 bg-white border-orange-200"
@@ -197,7 +195,7 @@ export default function Recipes() {
                       onClick={() => setSelectedCategory(category)}
                       className="whitespace-nowrap"
                     >
-                      {category === "all" ? "전체" : category}
+                      {category === "all" ? "All" : category}
                     </Button>
                   ))}
                 </div>
@@ -229,7 +227,6 @@ export default function Recipes() {
                       className="rounded-full w-8 h-8 p-0 bg-white/80 hover:bg-white"
                       onClick={(e) => {
                         e.stopPropagation();
-                        // Handle favorite toggle
                       }}
                     >
                       <Heart className="h-4 w-4" />
@@ -256,7 +253,7 @@ export default function Recipes() {
                     </div>
                     <div className="flex items-center gap-1">
                       <Users className="h-4 w-4" />
-                      {recipe.servings}인분
+                      {recipe.servings}
                     </div>
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -279,7 +276,7 @@ export default function Recipes() {
 
                   {/* Ingredients Preview */}
                   <div className="text-sm text-gray-600">
-                    <span className="font-medium">주재료: </span>
+                    <span className="font-medium">Ingredients: </span>
                     {recipe.ingredients.slice(0, 3).join(", ")}
                     {recipe.ingredients.length > 3 && "..."}
                   </div>
@@ -296,10 +293,10 @@ export default function Recipes() {
               <Search className="h-8 w-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              검색 결과가 없습니다
+              No recipes found
             </h3>
             <p className="text-gray-600 mb-4">
-              다른 검색어나 카테고리를 시도해보세요
+              Try adjusting your search or filters
             </p>
             <Button
               variant="outline"
@@ -308,7 +305,7 @@ export default function Recipes() {
                 setSelectedCategory("all");
               }}
             >
-              필터 초기화
+              Clear Filters
             </Button>
           </div>
         )}
@@ -318,10 +315,11 @@ export default function Recipes() {
           <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-orange-200">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                새로운 재료를 발견해보세요!
+                Discover new ingredients!
               </h2>
               <p className="text-gray-600 mb-6">
-                냉장고 사진을 찍어서 더 많은 맞춤 레시피를 받아보세요
+                Take a photo of your fridge to get personalized recipe
+                suggestions
               </p>
               <Button
                 asChild
@@ -330,7 +328,7 @@ export default function Recipes() {
               >
                 <Link to="/">
                   <ChefHat className="mr-2 h-5 w-5" />
-                  새로운 분석 시작하기
+                  Start New Analysis
                 </Link>
               </Button>
             </CardContent>
