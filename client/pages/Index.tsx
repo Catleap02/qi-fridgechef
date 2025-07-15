@@ -125,8 +125,136 @@ export default function Index() {
                     onChange={handleInputChange}
                     className="hidden"
                   />
-                  <div className="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                    <Upload className="h-8 w-8 text-primary" />
+                  <div className="mx-auto mb-6 w-32 h-32 flex items-center justify-center">
+                    {/* Fridge SVG Illustration */}
+                    <svg
+                      viewBox="0 0 200 240"
+                      className="w-full h-full text-primary"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      {/* Main fridge body */}
+                      <rect
+                        x="20"
+                        y="20"
+                        width="160"
+                        height="200"
+                        rx="12"
+                        fill="currentColor"
+                        fillOpacity="0.1"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      />
+
+                      {/* Freezer section divider */}
+                      <line
+                        x1="20"
+                        y1="100"
+                        x2="180"
+                        y2="100"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      />
+
+                      {/* Freezer door handle */}
+                      <rect
+                        x="160"
+                        y="40"
+                        width="4"
+                        height="20"
+                        rx="2"
+                        fill="currentColor"
+                      />
+
+                      {/* Main door handle */}
+                      <rect
+                        x="160"
+                        y="130"
+                        width="4"
+                        height="30"
+                        rx="2"
+                        fill="currentColor"
+                      />
+
+                      {/* Fridge shelves */}
+                      <line
+                        x1="30"
+                        y1="140"
+                        x2="150"
+                        y2="140"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeOpacity="0.3"
+                      />
+                      <line
+                        x1="30"
+                        y1="170"
+                        x2="150"
+                        y2="170"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeOpacity="0.3"
+                      />
+
+                      {/* Food items illustrations */}
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="8"
+                        fill="currentColor"
+                        fillOpacity="0.2"
+                      />
+                      <circle
+                        cx="80"
+                        cy="50"
+                        r="6"
+                        fill="currentColor"
+                        fillOpacity="0.2"
+                      />
+                      <rect
+                        x="40"
+                        y="150"
+                        width="15"
+                        height="12"
+                        rx="2"
+                        fill="currentColor"
+                        fillOpacity="0.2"
+                      />
+                      <rect
+                        x="70"
+                        y="150"
+                        width="12"
+                        height="15"
+                        rx="2"
+                        fill="currentColor"
+                        fillOpacity="0.2"
+                      />
+                      <circle
+                        cx="120"
+                        cy="155"
+                        r="7"
+                        fill="currentColor"
+                        fillOpacity="0.2"
+                      />
+
+                      {/* Upload indicator */}
+                      <g transform="translate(85, 190)">
+                        <circle
+                          cx="15"
+                          cy="15"
+                          r="15"
+                          fill="currentColor"
+                          fillOpacity="0.1"
+                        />
+                        <path
+                          d="M15 10L15 20M10 15L15 10L20 15"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </g>
+                    </svg>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
                     Upload a photo of your fridge
