@@ -96,23 +96,26 @@ export default function Index() {
                 FridgeChef
               </span>
             </div>
-            <nav className="hidden md:flex items-center gap-6">
-              <a
-                href="#features"
-                className="text-gray-600 hover:text-primary transition-colors"
-              >
-                기능
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-gray-600 hover:text-primary transition-colors"
-              >
-                사용법
-              </a>
-              <Button variant="outline" size="sm">
-                로그인
-              </Button>
-            </nav>
+            <div className="flex items-center gap-4">
+              <nav className="hidden md:flex items-center gap-6">
+                <a
+                  href="#features"
+                  className="text-gray-600 hover:text-primary transition-colors"
+                >
+                  기능
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="text-gray-600 hover:text-primary transition-colors"
+                >
+                  사용법
+                </a>
+                <Button variant="outline" size="sm">
+                  로그인
+                </Button>
+              </nav>
+              <MobileMenu />
+            </div>
           </div>
         </div>
       </header>
