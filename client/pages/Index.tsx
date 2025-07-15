@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Camera, Upload, Sparkles, ChefHat, Zap, Users } from "lucide-react";
+import { Camera, Upload, Sparkles, ChefHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import MobileMenu from "@/components/MobileMenu";
@@ -52,35 +52,11 @@ export default function Index() {
 
   const analyzeImage = () => {
     if (selectedFile) {
-      // Pass the selected file data to the results page
       navigate("/results", {
         state: { imageFile: selectedFile, imageUrl: previewUrl },
       });
     }
   };
-
-  const features = [
-    {
-      icon: Camera,
-      title: "사진 촬영",
-      description: "냉장고 속 재료를 간단히 촬영하세요",
-    },
-    {
-      icon: Sparkles,
-      title: "AI 분석",
-      description: "인공지능이 재료를 자동으로 인식합니다",
-    },
-    {
-      icon: Zap,
-      title: "칼로리 계산",
-      description: "각 재료의 영양 정보를 제공합니다",
-    },
-    {
-      icon: ChefHat,
-      title: "레시피 추천",
-      description: "가진 재료로 만들 수 있는 요리를 추천합니다",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50">
@@ -99,19 +75,13 @@ export default function Index() {
             <div className="flex items-center gap-4">
               <nav className="hidden md:flex items-center gap-6">
                 <a
-                  href="#features"
+                  href="#upload"
                   className="text-gray-600 hover:text-primary transition-colors"
                 >
-                  기능
-                </a>
-                <a
-                  href="#how-it-works"
-                  className="text-gray-600 hover:text-primary transition-colors"
-                >
-                  사용법
+                  Upload
                 </a>
                 <Button variant="outline" size="sm">
-                  로그인
+                  Sign In
                 </Button>
               </nav>
               <MobileMenu />
@@ -120,22 +90,22 @@ export default function Index() {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Main Content */}
       <section className="container mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            냉장고 속 재료로
+            Analyze your fridge
             <br />
-            <span className="text-primary">맛있는 요리</span>를 만들어보세요
+            Get <span className="text-primary">recipes</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            AI가 냉장고 사진을 분석하여 재료를 인식하고, 칼로리 정보와 함께 만들
-            수 있는 레시피를 추천해드립니다.
+            Take a photo of your fridge and get ingredient detection with
+            calories and recipe suggestions.
           </p>
         </div>
 
         {/* Upload Area */}
-        <div className="max-w-2xl mx-auto mb-16">
+        <div className="max-w-2xl mx-auto mb-16" id="upload">
           <Card className="border-2 border-dashed border-primary/30 bg-white/50 backdrop-blur-sm">
             <CardContent className="p-8">
               {!selectedFile ? (
@@ -159,10 +129,10 @@ export default function Index() {
                     <Upload className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    냉장고 사진을 업로드하세요
+                    Upload a photo of your fridge
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    사진을 드래그하거나 클릭하여 업로드하세요
+                    Drag and drop or click to select an image
                   </p>
                   <Button
                     onClick={openFileDialog}
@@ -170,7 +140,7 @@ export default function Index() {
                     className="bg-primary hover:bg-primary/90"
                   >
                     <Camera className="mr-2 h-5 w-5" />
-                    사진 선택하기
+                    Choose Photo
                   </Button>
                 </div>
               ) : (
@@ -183,10 +153,10 @@ export default function Index() {
                     />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    사진이 업로드되었습니다!
+                    Photo uploaded successfully
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    AI가 재료를 분석하고 레시피를 추천해드릴게요
+                    Ready to analyze ingredients and get recipe suggestions
                   </p>
                   <div className="flex gap-3 justify-center">
                     <Button
@@ -196,7 +166,7 @@ export default function Index() {
                         setPreviewUrl("");
                       }}
                     >
-                      다시 선택
+                      Choose Different Photo
                     </Button>
                     <Button
                       onClick={analyzeImage}
@@ -204,7 +174,7 @@ export default function Index() {
                       className="bg-primary hover:bg-primary/90"
                     >
                       <Sparkles className="mr-2 h-5 w-5" />
-                      분석 시작하기
+                      Analyze
                     </Button>
                   </div>
                 </div>
@@ -212,53 +182,6 @@ export default function Index() {
             </CardContent>
           </Card>
         </div>
-
-        {/* Features */}
-        <section id="features" className="mb-16">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            어떻게 작동하나요?
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="text-center bg-white/70 backdrop-blur-sm border-orange-200"
-              >
-                <CardContent className="p-6">
-                  <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Stats */}
-        <section className="text-center bg-white/50 backdrop-blur-sm rounded-2xl p-8 border border-orange-200">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">
-                10,000+
-              </div>
-              <div className="text-gray-600">인식 가능한 재료</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">
-                50,000+
-              </div>
-              <div className="text-gray-600">레시피 데이터베이스</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">99%</div>
-              <div className="text-gray-600">인식 정확도</div>
-            </div>
-          </div>
-        </section>
       </section>
     </div>
   );
