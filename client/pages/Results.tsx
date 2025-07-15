@@ -17,7 +17,6 @@ import MobileMenu from "@/components/MobileMenu";
 
 interface DetectedIngredient {
   name: string;
-  koreanName: string;
   confidence: number;
   calories: number;
   nutrients: {
@@ -57,78 +56,71 @@ export default function Results() {
     // Simulate AI analysis
     const timer = setTimeout(() => {
       setIsAnalyzing(false);
-      // Mock detected ingredients
       setIngredients([
         {
           name: "Tomato",
-          koreanName: "토마토",
           confidence: 98,
           calories: 18,
           nutrients: { protein: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2 },
         },
         {
           name: "Onion",
-          koreanName: "양파",
           confidence: 95,
           calories: 40,
           nutrients: { protein: 1.1, carbs: 9.3, fat: 0.1, fiber: 1.7 },
         },
         {
           name: "Garlic",
-          koreanName: "마늘",
           confidence: 92,
           calories: 149,
           nutrients: { protein: 6.4, carbs: 33, fat: 0.5, fiber: 2.1 },
         },
         {
           name: "Carrot",
-          koreanName: "당근",
           confidence: 89,
           calories: 41,
           nutrients: { protein: 0.9, carbs: 9.6, fat: 0.2, fiber: 2.8 },
         },
         {
           name: "Chicken Breast",
-          koreanName: "닭가슴살",
           confidence: 87,
           calories: 165,
           nutrients: { protein: 31, carbs: 0, fat: 3.6, fiber: 0 },
         },
       ]);
 
-      // Mock recipe recommendations
       setRecommendedRecipes([
         {
           id: "1",
-          name: "닭가슴살 토마토 볶음",
+          name: "Chicken Tomato Stir Fry",
           image: "/placeholder.svg",
-          cookTime: "25분",
-          difficulty: "쉬움",
+          cookTime: "25 min",
+          difficulty: "Easy",
           servings: 2,
           rating: 4.8,
-          ingredients: ["닭가슴살", "토마토", "양파", "마늘"],
+          ingredients: ["Chicken Breast", "Tomato", "Onion", "Garlic"],
           calories: 320,
         },
         {
           id: "2",
-          name: "채소 닭고기 스튜",
+          name: "Vegetable Chicken Stew",
           image: "/placeholder.svg",
-          cookTime: "40분",
-          difficulty: "보통",
+          cookTime: "40 min",
+          difficulty: "Medium",
           servings: 4,
           rating: 4.6,
-          ingredients: ["닭가슴살", "당근", "양파", "토마토"],
+          ingredients: ["Chicken Breast", "Carrot", "Onion", "Tomato"],
           calories: 280,
         },
         {
           id: "3",
-          name: "간단한 치킨 샐러드",
+          name: "Simple Chicken Salad",
           image: "/placeholder.svg",
-          cookTime: "15분",
-          difficulty: "쉬움",
+          cookTime: "15 min",
+          difficulty: "Easy",
           servings: 1,
           rating: 4.7,
-          ingredients: ["닭가슴살", "토마토", "양파"],
+          ingredients: ["Chicken Breast", "Tomato", "Onion"],
           calories: 240,
         },
       ]);
@@ -160,7 +152,7 @@ export default function Results() {
                 className="gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                돌아가기
+                Back
               </Button>
               <div className="flex items-center gap-2">
                 <div className="bg-primary p-2 rounded-xl">
@@ -186,10 +178,10 @@ export default function Results() {
                   <Zap className="h-10 w-10 text-primary animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  AI가 재료를 분석 중입니다...
+                  Analyzing ingredients...
                 </h2>
                 <p className="text-gray-600 mb-6">
-                  잠시만 기다려주세요. 곧 결과를 보여드릴게요!
+                  Please wait while we identify your ingredients.
                 </p>
                 <Progress value={75} className="w-full" />
               </CardContent>
@@ -205,7 +197,7 @@ export default function Results() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5 text-primary" />
-                    분석 결과
+                    Analysis Results
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -219,7 +211,7 @@ export default function Results() {
                       variant="secondary"
                       className="bg-green-100 text-green-800"
                     >
-                      {ingredients.length}개 재료 인식됨
+                      {ingredients.length} ingredients detected
                     </Badge>
                   </div>
                 </CardContent>
@@ -228,7 +220,7 @@ export default function Results() {
               {/* Detected Ingredients */}
               <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                 <CardHeader>
-                  <CardTitle>인식된 재료</CardTitle>
+                  <CardTitle>Detected Ingredients</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -240,17 +232,17 @@ export default function Results() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
                             <h3 className="font-semibold text-gray-900">
-                              {ingredient.koreanName}
+                              {ingredient.name}
                             </h3>
                             <Badge variant="outline" className="text-xs">
-                              {ingredient.confidence}% 정확도
+                              {ingredient.confidence}% confidence
                             </Badge>
                           </div>
                           <div className="grid grid-cols-4 gap-4 text-sm text-gray-600">
-                            <div>단백질: {ingredient.nutrients.protein}g</div>
-                            <div>탄수화물: {ingredient.nutrients.carbs}g</div>
-                            <div>지방: {ingredient.nutrients.fat}g</div>
-                            <div>섬유질: {ingredient.nutrients.fiber}g</div>
+                            <div>Protein: {ingredient.nutrients.protein}g</div>
+                            <div>Carbs: {ingredient.nutrients.carbs}g</div>
+                            <div>Fat: {ingredient.nutrients.fat}g</div>
+                            <div>Fiber: {ingredient.nutrients.fiber}g</div>
                           </div>
                         </div>
                         <div className="text-right">
@@ -271,14 +263,16 @@ export default function Results() {
               {/* Nutrition Summary */}
               <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                 <CardHeader>
-                  <CardTitle className="text-center">영양 정보 요약</CardTitle>
+                  <CardTitle className="text-center">
+                    Nutrition Summary
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="text-center">
                   <div className="mb-4">
                     <div className="text-3xl font-bold text-primary mb-2">
                       {totalCalories}
                     </div>
-                    <div className="text-gray-600">총 칼로리 (kcal)</div>
+                    <div className="text-gray-600">Total Calories (kcal)</div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="p-3 bg-blue-50 rounded-lg">
@@ -288,7 +282,7 @@ export default function Results() {
                           .toFixed(1)}
                         g
                       </div>
-                      <div className="text-blue-600">단백질</div>
+                      <div className="text-blue-600">Protein</div>
                     </div>
                     <div className="p-3 bg-yellow-50 rounded-lg">
                       <div className="font-semibold text-yellow-900">
@@ -297,7 +291,7 @@ export default function Results() {
                           .toFixed(1)}
                         g
                       </div>
-                      <div className="text-yellow-600">탄수화물</div>
+                      <div className="text-yellow-600">Carbs</div>
                     </div>
                     <div className="p-3 bg-red-50 rounded-lg">
                       <div className="font-semibold text-red-900">
@@ -306,7 +300,7 @@ export default function Results() {
                           .toFixed(1)}
                         g
                       </div>
-                      <div className="text-red-600">지방</div>
+                      <div className="text-red-600">Fat</div>
                     </div>
                     <div className="p-3 bg-green-50 rounded-lg">
                       <div className="font-semibold text-green-900">
@@ -315,7 +309,7 @@ export default function Results() {
                           .toFixed(1)}
                         g
                       </div>
-                      <div className="text-green-600">섬유질</div>
+                      <div className="text-green-600">Fiber</div>
                     </div>
                   </div>
                 </CardContent>
@@ -326,7 +320,7 @@ export default function Results() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <ChefHat className="h-5 w-5 text-primary" />
-                    추천 레시피
+                    Recipe Suggestions
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -354,7 +348,7 @@ export default function Results() {
                               </div>
                               <div className="flex items-center gap-1">
                                 <Users className="h-3 w-3" />
-                                {recipe.servings}인분
+                                {recipe.servings} servings
                               </div>
                               <div className="flex items-center gap-1">
                                 <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
@@ -371,7 +365,7 @@ export default function Results() {
                     ))}
                   </div>
                   <Button asChild className="w-full mt-4" variant="outline">
-                    <Link to="/recipes">모든 레시피 보기</Link>
+                    <Link to="/recipes">View All Recipes</Link>
                   </Button>
                 </CardContent>
               </Card>
