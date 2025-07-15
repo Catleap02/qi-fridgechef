@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Camera, Upload, Sparkles, ChefHat, Zap, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import MobileMenu from "@/components/MobileMenu";
 
 export default function Index() {
   const [dragActive, setDragActive] = useState(false);
