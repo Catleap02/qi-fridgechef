@@ -50,7 +50,7 @@ export default function RecipeDetail() {
         step: 1,
         title: "재료 준비하기",
         description:
-          "닭가슴살은 한입 크기로 자르고, 토마토는 쐐기 모양으로, 양파는 채 썰어주세요. 마���은 얇게 슬라이스합니다.",
+          "닭가슴살은 한입 크기로 자르고, 토마토는 쐐기 모양으로, 양파는 채 썰어주세요. 마늘은 얇게 ��라이스합니다.",
         time: "5분",
       },
       {
@@ -123,14 +123,17 @@ export default function RecipeDetail() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Heart className="h-4 w-4" />
-                저장
-              </Button>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Share2 className="h-4 w-4" />
-                공유
-              </Button>
+              <div className="hidden md:flex items-center gap-2">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Heart className="h-4 w-4" />
+                  저장
+                </Button>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Share2 className="h-4 w-4" />
+                  공유
+                </Button>
+              </div>
+              <MobileMenu />
             </div>
           </div>
         </div>
