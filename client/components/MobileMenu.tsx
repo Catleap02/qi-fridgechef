@@ -14,8 +14,8 @@ export default function MobileMenu() {
   const [open, setOpen] = useState(false);
 
   const menuItems = [
-    { icon: Home, label: "홈", href: "/" },
-    { icon: BookOpen, label: "레시피", href: "/recipes" },
+    { icon: Home, label: "Home", href: "/" },
+    { icon: BookOpen, label: "Recipes", href: "/recipes" },
   ];
 
   return (
@@ -53,7 +53,7 @@ export default function MobileMenu() {
             <hr className="border-orange-200" />
             <Button variant="outline" className="justify-start gap-3">
               <User className="h-5 w-5" />
-              로그인
+              Sign In
             </Button>
           </nav>
         </SheetContent>
