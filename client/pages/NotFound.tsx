@@ -14,22 +14,22 @@ export default function NotFound() {
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              페이지를 찾을 수 없습니다
+              Page not found
             </h2>
             <p className="text-gray-600 mb-8">
-              요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.
+              The page you're looking for doesn't exist or has been moved.
             </p>
             <div className="space-y-3">
               <Button asChild className="w-full bg-primary hover:bg-primary/90">
                 <Link to="/">
                   <Home className="mr-2 h-4 w-4" />
-                  홈으로 돌아가기
+                  Go Home
                 </Link>
               </Button>
               <Button asChild variant="outline" className="w-full">
                 <Link to="/recipes">
                   <ChefHat className="mr-2 h-4 w-4" />
-                  레시피 둘러보기
+                  Browse Recipes
                 </Link>
               </Button>
             </div>
