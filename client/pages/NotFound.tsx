@@ -1,27 +1,41 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ChefHat, Home, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname,
-    );
-  }, [location.pathname]);
-
+export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50 flex items-center justify-center">
+      <div className="container mx-auto px-4">
+        <Card className="max-w-md mx-auto bg-white/50 backdrop-blur-sm border-orange-200">
+          <CardContent className="p-8 text-center">
+            <div className="bg-primary/10 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+              <Search className="h-10 w-10 text-primary" />
+            </div>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              페이지를 찾을 수 없습니다
+            </h2>
+            <p className="text-gray-600 mb-8">
+              요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.
+            </p>
+            <div className="space-y-3">
+              <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                <Link to="/">
+                  <Home className="mr-2 h-4 w-4" />
+                  홈으로 돌아가기
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="w-full">
+                <Link to="/recipes">
+                  <ChefHat className="mr-2 h-4 w-4" />
+                  레시피 둘러보기
+                </Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
-};
-
-export default NotFound;
+}
