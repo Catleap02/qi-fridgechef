@@ -117,7 +117,7 @@ export default function Results() {
           difficulty: "보통",
           servings: 4,
           rating: 4.6,
-          ingredients: ["닭가��살", "당근", "양파", "토마토"],
+          ingredients: ["닭가슴살", "당근", "양파", "토마토"],
           calories: 280,
         },
         {
@@ -171,6 +171,7 @@ export default function Results() {
                 </span>
               </div>
             </div>
+            <MobileMenu />
           </div>
         </div>
       </header>
