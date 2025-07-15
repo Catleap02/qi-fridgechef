@@ -41,7 +41,7 @@ export default function Recipes() {
       id: "1",
       name: "닭가슴살 토마토 볶음",
       image: "/placeholder.svg",
-      cookTime: "25분",
+      cookTime: "25��",
       difficulty: "쉬움",
       servings: 2,
       rating: 4.8,
@@ -74,7 +74,7 @@ export default function Recipes() {
       ingredients: ["닭가슴살", "토마토", "양파"],
       calories: 240,
       category: "샐러드",
-      tags: ["다이어트", "간��"],
+      tags: ["다이어트", "간편"],
     },
     {
       id: "4",
@@ -86,7 +86,7 @@ export default function Recipes() {
       rating: 4.5,
       ingredients: ["밥", "마늘", "양파", "계란"],
       calories: 380,
-      category: "메인요리",
+      category: "메��요리",
       tags: ["간편", "든든한"],
     },
     {
@@ -153,6 +153,7 @@ export default function Recipes() {
                 </span>
               </div>
             </div>
+            <MobileMenu />
           </div>
         </div>
       </header>
