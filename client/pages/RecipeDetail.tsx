@@ -19,67 +19,66 @@ export default function RecipeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Mock recipe data - in a real app, you'd fetch this based on the ID
   const recipe = {
     id: "1",
-    name: "닭가슴살 토마토 볶음",
+    name: "Chicken Tomato Stir Fry",
     image: "/placeholder.svg",
-    cookTime: "25분",
-    prepTime: "15분",
-    difficulty: "쉬움",
+    cookTime: "25 min",
+    prepTime: "15 min",
+    difficulty: "Easy",
     servings: 2,
     rating: 4.8,
     reviews: 127,
     calories: 320,
-    category: "메인요리",
-    tags: ["고단백", "저칼로리", "건강식"],
+    category: "Main Course",
+    tags: ["High Protein", "Low Calorie", "Healthy"],
     description:
-      "신선한 토마토와 부드러운 닭가슴살로 만드는 건강하고 맛있는 볶음 요리입니다. 단백질이 풍부하면서도 칼로리가 낮아 다이어트 중에도 안심하고 드실 수 있습니다.",
+      "A healthy and delicious stir fry made with fresh tomatoes and tender chicken breast. High in protein and low in calories, perfect for a healthy meal.",
     ingredients: [
-      { name: "닭가슴살", amount: "300g", calories: 165 },
-      { name: "토마토", amount: "2개 (중간 크기)", calories: 36 },
-      { name: "양파", amount: "1/2개", calories: 20 },
-      { name: "마늘", amount: "3쪽", calories: 12 },
-      { name: "올리브오일", amount: "1큰술", calories: 119 },
-      { name: "소금", amount: "약간", calories: 0 },
-      { name: "후추", amount: "약간", calories: 0 },
-      { name: "바질", amount: "장식용", calories: 1 },
+      { name: "Chicken Breast", amount: "300g", calories: 165 },
+      { name: "Tomato", amount: "2 medium", calories: 36 },
+      { name: "Onion", amount: "1/2 piece", calories: 20 },
+      { name: "Garlic", amount: "3 cloves", calories: 12 },
+      { name: "Olive Oil", amount: "1 tbsp", calories: 119 },
+      { name: "Salt", amount: "to taste", calories: 0 },
+      { name: "Pepper", amount: "to taste", calories: 0 },
+      { name: "Basil", amount: "for garnish", calories: 1 },
     ],
     instructions: [
       {
         step: 1,
-        title: "재료 준비하기",
+        title: "Prepare ingredients",
         description:
-          "닭가슴살은 한입 크기로 자르고, 토마토는 쐐기 모양으로, 양파는 채 썰어주세요. 마늘은 얇게 ��라이스합니다.",
-        time: "5분",
+          "Cut chicken breast into bite-sized pieces, slice tomatoes into wedges, julienne the onion, and thinly slice garlic.",
+        time: "5 min",
       },
       {
         step: 2,
-        title: "닭가슴살 볶기",
+        title: "Cook chicken",
         description:
-          "팬에 올리브오일을 두르고 중간 불에서 닭가슴살을 볶아주세요. 겉면이 노릇해질 때까지 약 5-7분간 볶습니다.",
-        time: "7분",
+          "Heat olive oil in a pan over medium heat. Cook chicken pieces until golden brown on the outside, about 5-7 minutes.",
+        time: "7 min",
       },
       {
         step: 3,
-        title: "야채 볶기",
+        title: "Add vegetables",
         description:
-          "닭가슴살이 익으면 마늘과 양파를 넣고 1-2분간 볶아 향을 낸 후, 토마토를 넣고 함께 볶아주세요.",
-        time: "3분",
+          "Add garlic and onion to the pan and stir-fry for 1-2 minutes until fragrant. Then add tomatoes and stir-fry together.",
+        time: "3 min",
       },
       {
         step: 4,
-        title: "양념하기",
+        title: "Season",
         description:
-          "소금과 후추로 간을 맞추고, 토마토가 부드러워질 때까지 2-3분 더 볶아주세요.",
-        time: "3분",
+          "Season with salt and pepper to taste. Continue cooking for 2-3 more minutes until tomatoes are softened.",
+        time: "3 min",
       },
       {
         step: 5,
-        title: "마무리",
+        title: "Finish and serve",
         description:
-          "불을 끄고 신선한 바질을 올려 장식한 후 바로 서빙해주세요.",
-        time: "1분",
+          "Turn off heat and garnish with fresh basil. Serve immediately.",
+        time: "1 min",
       },
     ],
     nutrition: {
@@ -91,9 +90,9 @@ export default function RecipeDetail() {
       sodium: 380,
     },
     tips: [
-      "닭가슴살이 퍽퍽해지지 않도록 너무 오래 볶지 마세요.",
-      "토마토는 너무 익지 않게 적당히 볶아야 식감이 좋습니다.",
-      "바질 대신 파슬리나 로즈마리를 사용해도 좋습니다.",
+      "Don't overcook the chicken to keep it tender and juicy.",
+      "Cook tomatoes just until tender to maintain their texture.",
+      "You can substitute basil with parsley or rosemary.",
     ],
   };
 
@@ -111,7 +110,7 @@ export default function RecipeDetail() {
                 className="gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
-                돌아가기
+                Back
               </Button>
               <div className="flex items-center gap-2">
                 <div className="bg-primary p-2 rounded-xl">
@@ -126,11 +125,11 @@ export default function RecipeDetail() {
               <div className="hidden md:flex items-center gap-2">
                 <Button variant="outline" size="sm" className="gap-2">
                   <Heart className="h-4 w-4" />
-                  저장
+                  Save
                 </Button>
                 <Button variant="outline" size="sm" className="gap-2">
                   <Share2 className="h-4 w-4" />
-                  공유
+                  Share
                 </Button>
               </div>
               <MobileMenu />
@@ -175,14 +174,14 @@ export default function RecipeDetail() {
                       <div className="font-semibold text-gray-900">
                         {recipe.cookTime}
                       </div>
-                      <div className="text-sm text-gray-600">조리시간</div>
+                      <div className="text-sm text-gray-600">Cook Time</div>
                     </div>
                     <div className="text-center p-3 bg-orange-50 rounded-lg">
                       <Users className="h-5 w-5 text-primary mx-auto mb-1" />
                       <div className="font-semibold text-gray-900">
-                        {recipe.servings}인분
+                        {recipe.servings}
                       </div>
-                      <div className="text-sm text-gray-600">인분</div>
+                      <div className="text-sm text-gray-600">Servings</div>
                     </div>
                     <div className="text-center p-3 bg-orange-50 rounded-lg">
                       <Star className="h-5 w-5 text-primary mx-auto mb-1" />
@@ -190,7 +189,7 @@ export default function RecipeDetail() {
                         {recipe.rating}
                       </div>
                       <div className="text-sm text-gray-600">
-                        {recipe.reviews}개 리뷰
+                        {recipe.reviews} reviews
                       </div>
                     </div>
                     <div className="text-center p-3 bg-orange-50 rounded-lg">
@@ -207,7 +206,7 @@ export default function RecipeDetail() {
             {/* Ingredients */}
             <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
               <CardHeader>
-                <CardTitle>재료 ({recipe.servings}인분 기준)</CardTitle>
+                <CardTitle>Ingredients (serves {recipe.servings})</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -239,7 +238,7 @@ export default function RecipeDetail() {
             {/* Instructions */}
             <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
               <CardHeader>
-                <CardTitle>조리 과정</CardTitle>
+                <CardTitle>Instructions</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
@@ -272,7 +271,7 @@ export default function RecipeDetail() {
             {/* Tips */}
             <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
               <CardHeader>
-                <CardTitle>요리 팁</CardTitle>
+                <CardTitle>Cooking Tips</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -299,44 +298,44 @@ export default function RecipeDetail() {
             {/* Nutrition Facts */}
             <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
               <CardHeader>
-                <CardTitle>영양 정보</CardTitle>
-                <p className="text-sm text-gray-600">1인분 기준</p>
+                <CardTitle>Nutrition Facts</CardTitle>
+                <p className="text-sm text-gray-600">Per serving</p>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">칼로리</span>
+                    <span className="text-gray-600">Calories</span>
                     <span className="font-semibold">
                       {recipe.nutrition.calories} kcal
                     </span>
                   </div>
                   <Separator />
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">단백질</span>
+                    <span className="text-gray-600">Protein</span>
                     <span className="font-semibold">
                       {recipe.nutrition.protein}g
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">탄수화물</span>
+                    <span className="text-gray-600">Carbs</span>
                     <span className="font-semibold">
                       {recipe.nutrition.carbs}g
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">지방</span>
+                    <span className="text-gray-600">Fat</span>
                     <span className="font-semibold">
                       {recipe.nutrition.fat}g
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">섬유질</span>
+                    <span className="text-gray-600">Fiber</span>
                     <span className="font-semibold">
                       {recipe.nutrition.fiber}g
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">나트륨</span>
+                    <span className="text-gray-600">Sodium</span>
                     <span className="font-semibold">
                       {recipe.nutrition.sodium}mg
                     </span>
@@ -348,14 +347,26 @@ export default function RecipeDetail() {
             {/* Related Recipes */}
             <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
               <CardHeader>
-                <CardTitle>비슷한 레시피</CardTitle>
+                <CardTitle>Similar Recipes</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {[
-                    { name: "채소 닭고기 스튜", time: "40분", rating: 4.6 },
-                    { name: "간단한 치킨 샐러드", time: "15분", rating: 4.7 },
-                    { name: "닭가슴살 그릴", time: "20분", rating: 4.5 },
+                    {
+                      name: "Vegetable Chicken Stew",
+                      time: "40 min",
+                      rating: 4.6,
+                    },
+                    {
+                      name: "Simple Chicken Salad",
+                      time: "15 min",
+                      rating: 4.7,
+                    },
+                    {
+                      name: "Grilled Chicken Breast",
+                      time: "20 min",
+                      rating: 4.5,
+                    },
                   ].map((relatedRecipe, index) => (
                     <div
                       key={index}
