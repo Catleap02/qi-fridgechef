@@ -188,10 +188,10 @@ export default function Results() {
                   <Zap className="h-10 w-10 text-primary animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  Analyzing ingredients...
+                  Generating recipe suggestions...
                 </h2>
                 <p className="text-gray-600 mb-6">
-                  Please wait while we identify your ingredients.
+                  Creating personalized recipes based on your ingredients.
                 </p>
                 <Progress value={75} className="w-full" />
               </CardContent>
