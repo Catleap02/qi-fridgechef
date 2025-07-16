@@ -52,7 +52,7 @@ export default function Index() {
 
   const analyzeImage = () => {
     if (selectedFile) {
-      navigate("/results", {
+      navigate("/confirm", {
         state: { imageFile: selectedFile, imageUrl: previewUrl },
       });
     }
