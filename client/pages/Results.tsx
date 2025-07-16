@@ -42,7 +42,7 @@ interface Recipe {
 export default function Results() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { imageFile, imageUrl } = location.state || {};
+  const { imageFile, imageUrl, confirmedIngredients } = location.state || {};
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [ingredients, setIngredients] = useState<DetectedIngredient[]>([]);
   const [recommendedRecipes, setRecommendedRecipes] = useState<Recipe[]>([]);
