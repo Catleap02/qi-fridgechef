@@ -48,47 +48,57 @@ export default function Results() {
   const [recommendedRecipes, setRecommendedRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
-    if (!imageFile || !imageUrl) {
+    if (!imageFile || !imageUrl || !confirmedIngredients) {
       navigate("/");
       return;
     }
 
-    // Simulate AI analysis
+    // Simulate recipe generation based on confirmed ingredients
     const timer = setTimeout(() => {
       setIsAnalyzing(false);
-      setIngredients([
-        {
-          name: "Tomato",
-          confidence: 98,
-          calories: 18,
-          nutrients: { protein: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2 },
-        },
-        {
-          name: "Onion",
-          confidence: 95,
-          calories: 40,
-          nutrients: { protein: 1.1, carbs: 9.3, fat: 0.1, fiber: 1.7 },
-        },
-        {
-          name: "Garlic",
-          confidence: 92,
-          calories: 149,
-          nutrients: { protein: 6.4, carbs: 33, fat: 0.5, fiber: 2.1 },
-        },
-        {
-          name: "Carrot",
-          confidence: 89,
-          calories: 41,
-          nutrients: { protein: 0.9, carbs: 9.6, fat: 0.2, fiber: 2.8 },
-        },
-        {
-          name: "Chicken Breast",
-          confidence: 87,
-          calories: 165,
-          nutrients: { protein: 31, carbs: 0, fat: 3.6, fiber: 0 },
-        },
-      ]);
 
+      // Convert confirmed ingredients to detailed nutrition data
+      const detailedIngredients = confirmedIngredients.map((ing: any) => {
+        // Mock nutrition data based on ingredient name
+        const nutritionMap: Record<string, any> = {
+          Tomato: {
+            calories: 18,
+            nutrients: { protein: 0.9, carbs: 3.9, fat: 0.2, fiber: 1.2 },
+          },
+          Onion: {
+            calories: 40,
+            nutrients: { protein: 1.1, carbs: 9.3, fat: 0.1, fiber: 1.7 },
+          },
+          Garlic: {
+            calories: 149,
+            nutrients: { protein: 6.4, carbs: 33, fat: 0.5, fiber: 2.1 },
+          },
+          Carrot: {
+            calories: 41,
+            nutrients: { protein: 0.9, carbs: 9.6, fat: 0.2, fiber: 2.8 },
+          },
+          "Chicken Breast": {
+            calories: 165,
+            nutrients: { protein: 31, carbs: 0, fat: 3.6, fiber: 0 },
+          },
+        };
+
+        const defaultNutrition = {
+          calories: 50,
+          nutrients: { protein: 2, carbs: 8, fat: 1, fiber: 1 },
+        };
+        const nutrition = nutritionMap[ing.name] || defaultNutrition;
+
+        return {
+          name: ing.name,
+          confidence: ing.confidence,
+          ...nutrition,
+        };
+      });
+
+      setIngredients(detailedIngredients);
+
+      // Generate recipes based on available ingredients
       setRecommendedRecipes([
         {
           id: "1",
@@ -124,10 +134,10 @@ export default function Results() {
           calories: 240,
         },
       ]);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
-  }, [imageFile, imageUrl, navigate]);
+  }, [imageFile, imageUrl, confirmedIngredients, navigate]);
 
   const totalCalories = ingredients.reduce(
     (sum, ingredient) => sum + ingredient.calories,
