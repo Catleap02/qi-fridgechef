@@ -38,11 +38,6 @@ export default function Results() {
   const [chefMessage, setChefMessage] = useState("");
 
   useEffect(() => {
-    if (!confirmedIngredients || confirmedIngredients.length === 0) {
-      navigate("/");
-      return;
-    }
-
     const generateRecipes = async () => {
       setIsLoading(true);
       setError(null);
