@@ -61,7 +61,7 @@ export default function IngredientConfirmation() {
           setIngredients([]);
         }
       } catch (err: any) {
-        setError(err.message || "이미지 분석 중 오류가 발생했습니다.");
+        setError(err.message || "Error analyzing image.");
       } finally {
         setIsAnalyzing(false);
       }
@@ -109,7 +109,7 @@ export default function IngredientConfirmation() {
 
   const proceedToRecipes = () => {
     if (ingredients.length === 0) {
-      alert("레시피를 추천받으려면 재료가 하나 이상 필요합니다.");
+      alert("At least one ingredient is required to get recipe suggestions.");
       return;
     }
     const confirmedIngredientNames = ingredients.map((ing) => ing.name);
@@ -129,9 +129,9 @@ export default function IngredientConfirmation() {
   if (error) {
     return (
       <div className="container mx-auto py-16 text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">오류 발생</h2>
+        <h2 className="text-2xl font-bold text-red-600 mb-4">Error Occurred</h2>
         <p className="text-gray-700 mb-6">{error}</p>
-        <Button onClick={() => navigate("/")}>처음으로 돌아가기</Button>
+        <Button onClick={() => navigate("/")}>Go Back to Start</Button>
       </div>
     );
   }
