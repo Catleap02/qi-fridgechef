@@ -12,53 +12,69 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import MobileMenu from "@/components/MobileMenu";
+import { DetectApiResponse } from "@/api/detect-api";
 
-interface DetectedIngredient {
+// 프런트엔드에서 사용할 재료 객체 타입
+interface Ingredient {
   id: string;
   name: string;
-  confidence: number;
 }
 
 export default function IngredientConfirmation() {
   const location = useLocation();
   const navigate = useNavigate();
   const { imageFile, imageUrl } = location.state || {};
+
   const [isAnalyzing, setIsAnalyzing] = useState(true);
-  const [ingredients, setIngredients] = useState<DetectedIngredient[]>([]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [chefMessage, setChefMessage] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editValue, setEditValue] = useState("");
   const [newIngredient, setNewIngredient] = useState("");
 
   useEffect(() => {
-    if (!imageFile || !imageUrl) {
-      navigate("/");
-      return;
-    }
+    const analyze = async () => {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+      try {
+        const response = await fetch("/api/fridges/analyze", {
+          method: "POST",
+          body: formData,
+        });
+        const result: DetectApiResponse = await response.json();
+        if (!response.ok) {
+          throw new Error(result.chefMessage || "API 요청에 실패했습니다.");
+        }
+        setChefMessage(result.chefMessage);
+        if (result.status === "SUCCESS") {
+          const ingredientsWithIds = result.ingredients.map((name) => ({
+            id: crypto.randomUUID(),
+            name: name,
+          }));
+          setIngredients(ingredientsWithIds);
+        } else {
+          setIngredients([]);
+        }
+      } catch (err: any) {
+        setError(err.message || "이미지 분석 중 오류가 발생했습니다.");
+      } finally {
+        setIsAnalyzing(false);
+      }
+    };
+    analyze();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageFile]);
 
-    // Simulate AI detection
-    const timer = setTimeout(() => {
-      setIsAnalyzing(false);
-      setIngredients([
-        { id: "1", name: "Tomato", confidence: 98 },
-        { id: "2", name: "Onion", confidence: 95 },
-        { id: "3", name: "Garlic", confidence: 92 },
-        { id: "4", name: "Carrot", confidence: 89 },
-        { id: "5", name: "Chicken Breast", confidence: 87 },
-      ]);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [imageFile, imageUrl, navigate]);
-
-  const removeIngredient = (id: string) => {
-    setIngredients(ingredients.filter((ing) => ing.id !== id));
+  const removeIngredient = (idToRemove: string) => {
+    setIngredients(ingredients.filter((ing) => ing.id !== idToRemove));
   };
 
-  const startEditing = (ingredient: DetectedIngredient) => {
+  const startEditing = (ingredient: Ingredient) => {
     setEditingId(ingredient.id);
     setEditValue(ingredient.name);
   };
@@ -82,27 +98,42 @@ export default function IngredientConfirmation() {
 
   const addIngredient = () => {
     if (newIngredient.trim()) {
-      const newId = Date.now().toString();
-      setIngredients([
-        ...ingredients,
-        { id: newId, name: newIngredient.trim(), confidence: 100 },
-      ]);
+      const newIng: Ingredient = {
+        id: crypto.randomUUID(),
+        name: newIngredient.trim(),
+      };
+      setIngredients([...ingredients, newIng]);
       setNewIngredient("");
     }
   };
 
   const proceedToRecipes = () => {
+    if (ingredients.length === 0) {
+      alert("레시피를 추천받으려면 재료가 하나 이상 필요합니다.");
+      return;
+    }
+    const confirmedIngredientNames = ingredients.map((ing) => ing.name);
     navigate("/results", {
       state: {
-        imageFile,
-        imageUrl,
-        confirmedIngredients: ingredients,
+        confirmedIngredients: confirmedIngredientNames,
+        imageUrl: imageUrl,
       },
     });
   };
 
-  if (!imageFile || !imageUrl) {
+  if (!imageFile && !imageUrl) {
+    if (!isAnalyzing) navigate("/");
     return null;
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto py-16 text-center">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">오류 발생</h2>
+        <p className="text-gray-700 mb-6">{error}</p>
+        <Button onClick={() => navigate("/")}>처음으로 돌아가기</Button>
+      </div>
+    );
   }
 
   return (
@@ -118,15 +149,16 @@ export default function IngredientConfirmation() {
                 onClick={() => navigate("/")}
                 className="gap-2"
               >
-                <ArrowLeft className="h-4 w-4" />
-                Back
+                <ArrowLeft className="h-4 w-4" /> Back
               </Button>
               <div className="flex items-center gap-2">
                 <div className="bg-primary p-2 rounded-xl">
-                  <ChefHat className="h-6 w-6 text-white" />
+                  {" "}
+                  <ChefHat className="h-6 w-6 text-white" />{" "}
                 </div>
                 <span className="font-bold text-xl text-gray-900">
-                  FridgeChef
+                  {" "}
+                  FridgeChef{" "}
                 </span>
               </div>
             </div>
@@ -145,10 +177,13 @@ export default function IngredientConfirmation() {
                   <Zap className="h-10 w-10 text-primary animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  Detecting ingredients...
+                  {" "}
+                  Detecting ingredients...{" "}
                 </h2>
                 <p className="text-gray-600 mb-6">
-                  AI is analyzing your fridge photo to identify ingredients.
+                  {" "}
+                  {chefMessage ||
+                    "AI is analyzing your fridge photo to identify ingredients."}{" "}
                 </p>
                 <Progress value={75} className="w-full" />
               </CardContent>
@@ -159,40 +194,44 @@ export default function IngredientConfirmation() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                Confirm Your Ingredients
+                {chefMessage || "Confirm Your Ingredients"}
               </h1>
               <p className="text-gray-600">
                 Review the detected ingredients and make any necessary changes
                 before getting recipe suggestions.
               </p>
             </div>
-
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Left Column - Image */}
               <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                 <CardHeader>
+                  {" "}
                   <CardTitle className="flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-primary" />
-                    Your Fridge Photo
-                  </CardTitle>
+                    {" "}
+                    <Zap className="h-5 w-5 text-primary" /> Your Fridge
+                    Photo{" "}
+                  </CardTitle>{" "}
                 </CardHeader>
                 <CardContent>
+                  {" "}
                   <img
                     src={imageUrl}
                     alt="Your fridge contents"
                     className="w-full rounded-lg shadow-lg"
-                  />
+                  />{" "}
                 </CardContent>
               </Card>
 
               {/* Right Column - Ingredients */}
               <div className="space-y-6">
-                {/* Detected Ingredients */}
+                {/* Detected Ingredients Card */}
                 <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                   <CardHeader>
+                    {" "}
                     <CardTitle>
-                      Detected Ingredients ({ingredients.length})
-                    </CardTitle>
+                      {" "}
+                      Detected Ingredients ({ingredients.length}){" "}
+                    </CardTitle>{" "}
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
@@ -217,34 +256,34 @@ export default function IngredientConfirmation() {
                                 onClick={saveEdit}
                                 className="bg-green-500 hover:bg-green-600"
                               >
-                                <Check className="h-4 w-4" />
+                                {" "}
+                                <Check className="h-4 w-4" />{" "}
                               </Button>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={cancelEdit}
                               >
-                                <X className="h-4 w-4" />
+                                {" "}
+                                <X className="h-4 w-4" />{" "}
                               </Button>
                             </>
                           ) : (
                             <>
                               <div className="flex-1">
-                                <div className="flex items-center gap-2">
-                                  <span className="font-medium text-gray-900">
-                                    {ingredient.name}
-                                  </span>
-                                  <Badge variant="outline" className="text-xs">
-                                    {ingredient.confidence}% confidence
-                                  </Badge>
-                                </div>
+                                {" "}
+                                <span className="font-medium text-gray-900">
+                                  {" "}
+                                  {ingredient.name}{" "}
+                                </span>{" "}
                               </div>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => startEditing(ingredient)}
                               >
-                                <Edit2 className="h-4 w-4" />
+                                {" "}
+                                <Edit2 className="h-4 w-4" />{" "}
                               </Button>
                               <Button
                                 size="sm"
@@ -252,7 +291,8 @@ export default function IngredientConfirmation() {
                                 onClick={() => removeIngredient(ingredient.id)}
                                 className="text-red-500 hover:text-red-700"
                               >
-                                <X className="h-4 w-4" />
+                                {" "}
+                                <X className="h-4 w-4" />{" "}
                               </Button>
                             </>
                           )}
@@ -262,12 +302,14 @@ export default function IngredientConfirmation() {
                   </CardContent>
                 </Card>
 
-                {/* Add New Ingredient */}
+                {/* Add New Ingredient Card */}
                 <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                   <CardHeader>
+                    {" "}
                     <CardTitle className="text-base">
-                      Add Missing Ingredient
-                    </CardTitle>
+                      {" "}
+                      Add Missing Ingredient{" "}
+                    </CardTitle>{" "}
                   </CardHeader>
                   <CardContent>
                     <div className="flex gap-3">
@@ -283,7 +325,8 @@ export default function IngredientConfirmation() {
                         disabled={!newIngredient.trim()}
                         className="bg-primary hover:bg-primary/90"
                       >
-                        <Plus className="h-4 w-4" />
+                        {" "}
+                        <Plus className="h-4 w-4" />{" "}
                       </Button>
                     </div>
                   </CardContent>

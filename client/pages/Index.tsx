@@ -4,7 +4,6 @@ import { Camera, Upload, Sparkles, ChefHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import MobileMenu from "@/components/MobileMenu";
-import { DetectApiResponse } from "@/api/detect-api";
 
 export default function Index() {
   const [isLoading, setIsLoading] = useState(false);
@@ -51,54 +50,18 @@ export default function Index() {
   const openFileDialog = () => {
     fileInputRef.current?.click();
   };
-  const analyzeImage = async () => {
+  const analyzeImage = () => {
     if (!selectedFile) {
-      alert("분석할 사진을 선택해주세요.");
+      alert("Please select an image to analyze.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-
-    setIsLoading(true);
-
-    try {
-      const response = await fetch("/api/fridges/analyze", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result: DetectApiResponse = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.chefMessage || "fail to analyze image.");
-      }
-
-      if (result.status === "SUCCESS") {
-        navigate("/confirm", {
-          state: {
-            chefMessage: result.chefMessage,
-            ingredients: result.ingredients,
-            imageFile: selectedFile,
-            imageUrl: previewUrl,
-          },
-        });
-      } else {
-        navigate("/confirm", {
-          state: {
-            chefMessage: result.chefMessage,
-            ingredients: [],
-            imageFile: selectedFile,
-            imageUrl: previewUrl,
-          },
-        });
-      }
-    } catch (error) {
-      console.error("Error analyzing image:", error);
-      alert("try again later. the error occurred while analyzing the image.");
-    } finally {
-      setIsLoading(false);
-    }
+    navigate("/confirm", {
+      state: {
+        imageFile: selectedFile,
+        imageUrl: previewUrl,
+      },
+    });
   };
 
   return (
