@@ -154,11 +154,9 @@ export default function Results() {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            {chefMessage || "Recipe Suggestions"}
+            Recipe Suggestions
           </h1>
-          <p className="text-gray-600">
-            Here are the best recipes we found for your ingredients!
-          </p>
+          <p className="text-gray-600">{chefMessage}</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
