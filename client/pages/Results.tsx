@@ -74,7 +74,7 @@ export default function Results() {
   const handleRecipeClick = (dishName: string) => {
     const recipeDetail = detailedRecipes.find((r) => r.dishName === dishName);
     if (recipeDetail) {
-      navigate(`/recipe/${encodeURIComponent(dishName)}`, {
+      navigate(`/recipe`, {
         state: { recipe: recipeDetail },
       });
     }
