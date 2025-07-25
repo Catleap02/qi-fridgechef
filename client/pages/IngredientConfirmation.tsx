@@ -48,7 +48,7 @@ export default function IngredientConfirmation() {
         });
         const result: DetectApiResponse = await response.json();
         if (!response.ok) {
-          throw new Error(result.chefMessage || "API 요청에 실패했습니다.");
+          throw new Error(result.chefMessage || "Failed to analyze image.");
         }
         setChefMessage(result.chefMessage);
         if (result.status === "SUCCESS") {
