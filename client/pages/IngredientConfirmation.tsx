@@ -17,10 +17,19 @@ import { Progress } from "@/components/ui/progress";
 import MobileMenu from "@/components/MobileMenu";
 import { DetectApiResponse } from "@/api/detect-api";
 
-// 프런트엔드에서 사용할 재료 객체 타입
+// Interface for ingredients used in the frontend
 interface Ingredient {
   id: string;
   name: string;
+}
+
+// ✅ A simple, universally compatible function to generate a unique ID.
+function simpleUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 export default function IngredientConfirmation() {
@@ -38,6 +47,10 @@ export default function IngredientConfirmation() {
   const [newIngredient, setNewIngredient] = useState("");
 
   useEffect(() => {
+    if (!imageFile) {
+      navigate("/");
+      return;
+    }
     const analyze = async () => {
       const formData = new FormData();
       formData.append("image", imageFile);
@@ -53,7 +66,8 @@ export default function IngredientConfirmation() {
         setChefMessage(result.chefMessage);
         if (result.status === "SUCCESS") {
           const ingredientsWithIds = result.ingredients.map((name) => ({
-            id: crypto.randomUUID(),
+            // ✅ Replaced crypto.randomUUID() with the compatible function
+            id: simpleUUID(),
             name: name,
           }));
           setIngredients(ingredientsWithIds);
@@ -99,7 +113,8 @@ export default function IngredientConfirmation() {
   const addIngredient = () => {
     if (newIngredient.trim()) {
       const newIng: Ingredient = {
-        id: crypto.randomUUID(),
+        // ✅ Replaced crypto.randomUUID() here as well
+        id: simpleUUID(),
         name: newIngredient.trim(),
       };
       setIngredients([...ingredients, newIng]);
@@ -153,12 +168,10 @@ export default function IngredientConfirmation() {
               </Button>
               <div className="flex items-center gap-2">
                 <div className="bg-primary p-2 rounded-xl">
-                  {" "}
-                  <ChefHat className="h-6 w-6 text-white" />{" "}
+                  <ChefHat className="h-6 w-6 text-white" />
                 </div>
                 <span className="font-bold text-xl text-gray-900">
-                  {" "}
-                  FridgeChef{" "}
+                  FridgeChef
                 </span>
               </div>
             </div>
@@ -177,13 +190,11 @@ export default function IngredientConfirmation() {
                   <Zap className="h-10 w-10 text-primary animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  {" "}
-                  Detecting ingredients...{" "}
+                  Detecting ingredients...
                 </h2>
                 <p className="text-gray-600 mb-6">
-                  {" "}
                   {chefMessage ||
-                    "AI is analyzing your fridge photo to identify ingredients."}{" "}
+                    "AI is analyzing your fridge photo to identify ingredients."}
                 </p>
                 <Progress value={75} className="w-full" />
               </CardContent>
@@ -197,29 +208,24 @@ export default function IngredientConfirmation() {
                 Confirm Your Ingredients
               </h1>
               <p className="text-gray-600">
-                {chefMessage}
-                Review the detected ingredients and make any necessary changes
-                before getting recipe suggestions.
+                {chefMessage ||
+                  "Review the detected ingredients and make any necessary changes before getting recipe suggestions."}
               </p>
             </div>
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Left Column - Image */}
               <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                 <CardHeader>
-                  {" "}
                   <CardTitle className="flex items-center gap-2">
-                    {" "}
-                    <Zap className="h-5 w-5 text-primary" /> Your Fridge
-                    Photo{" "}
-                  </CardTitle>{" "}
+                    <Zap className="h-5 w-5 text-primary" /> Your Fridge Photo
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {" "}
                   <img
                     src={imageUrl}
                     alt="Your fridge contents"
                     className="w-full rounded-lg shadow-lg"
-                  />{" "}
+                  />
                 </CardContent>
               </Card>
 
@@ -228,11 +234,9 @@ export default function IngredientConfirmation() {
                 {/* Detected Ingredients Card */}
                 <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                   <CardHeader>
-                    {" "}
                     <CardTitle>
-                      {" "}
-                      Detected Ingredients ({ingredients.length}){" "}
-                    </CardTitle>{" "}
+                      Detected Ingredients ({ingredients.length})
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
@@ -257,34 +261,29 @@ export default function IngredientConfirmation() {
                                 onClick={saveEdit}
                                 className="bg-green-500 hover:bg-green-600"
                               >
-                                {" "}
-                                <Check className="h-4 w-4" />{" "}
+                                <Check className="h-4 w-4" />
                               </Button>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={cancelEdit}
                               >
-                                {" "}
-                                <X className="h-4 w-4" />{" "}
+                                <X className="h-4 w-4" />
                               </Button>
                             </>
                           ) : (
                             <>
                               <div className="flex-1">
-                                {" "}
                                 <span className="font-medium text-gray-900">
-                                  {" "}
-                                  {ingredient.name}{" "}
-                                </span>{" "}
+                                  {ingredient.name}
+                                </span>
                               </div>
                               <Button
                                 size="sm"
                                 variant="outline"
                                 onClick={() => startEditing(ingredient)}
                               >
-                                {" "}
-                                <Edit2 className="h-4 w-4" />{" "}
+                                <Edit2 className="h-4 w-4" />
                               </Button>
                               <Button
                                 size="sm"
@@ -292,8 +291,7 @@ export default function IngredientConfirmation() {
                                 onClick={() => removeIngredient(ingredient.id)}
                                 className="text-red-500 hover:text-red-700"
                               >
-                                {" "}
-                                <X className="h-4 w-4" />{" "}
+                                <X className="h-4 w-4" />
                               </Button>
                             </>
                           )}
@@ -306,11 +304,9 @@ export default function IngredientConfirmation() {
                 {/* Add New Ingredient Card */}
                 <Card className="bg-white/50 backdrop-blur-sm border-orange-200">
                   <CardHeader>
-                    {" "}
                     <CardTitle className="text-base">
-                      {" "}
-                      Add Missing Ingredient{" "}
-                    </CardTitle>{" "}
+                      Add Missing Ingredient
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex gap-3">
@@ -326,8 +322,7 @@ export default function IngredientConfirmation() {
                         disabled={!newIngredient.trim()}
                         className="bg-primary hover:bg-primary/90"
                       >
-                        {" "}
-                        <Plus className="h-4 w-4" />{" "}
+                        <Plus className="h-4 w-4" />
                       </Button>
                     </div>
                   </CardContent>
